@@ -17,4 +17,10 @@ export class DataService {
         .get('https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/naruto/1', this._options)
         .map(data => data.json());
     }
+
+    getMangaList(siteid: string): Observable<Array<any>> {
+        return this._http
+        .get("https://doodle-manga-scraper.p.mashape.com/mangareader.net?cover=1", this._options)
+        .map(data => data.json());
+    }
 }
