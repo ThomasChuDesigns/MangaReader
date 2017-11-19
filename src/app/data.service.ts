@@ -14,13 +14,22 @@ export class DataService {
 
     getChapter(name: string, chapterid: string): Observable<Response> {
         return this._http
-        .get('https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/naruto/1', this._options)
+        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${name}/${chapterid}`, this._options)
         .map(data => data.json());
     }
 
     getMangaList(siteid: string): Observable<Array<any>> {
         return this._http
-        .get("https://doodle-manga-scraper.p.mashape.com/mangareader.net?cover=1", this._options)
+        .get(`https://doodle-manga-scraper.p.mashape.com/${siteid}?cover=1&info=1`, this._options)
         .map(data => data.json());
     }
+
+    getManga(mangaid: string): Observable<Response> {
+        return this._http
+        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${mangaid}/`)
+        .map(data => data.json());
+    }
+
+
+
 }
