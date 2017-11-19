@@ -7,10 +7,12 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let manga of mangaList" (click)="presentManga(manga['id'])">
-        <img src="{{ manga['cover'] }}" alt="">
-        <h2 class="red">{{ manga['name'] }}</h2>
-        <p>{{ manga['info'] }}</p>
+
+      <ion-col col-4 *ngFor="let manga of mangaList | async" (click)="presentManga(manga['mangaId'])">
+        <ion-card class="text-center">
+            <img src="{{ manga['cover'] }}" class="img-card">
+            <ion-card-title>{{ manga['name'] }}</ion-card-title>
+        </ion-card>
       </ion-col>
 
     </ion-row>

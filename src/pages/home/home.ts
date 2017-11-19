@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
+import { MangaList } from '../../models/manga.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'page-home',
@@ -8,22 +10,18 @@ import { DataService } from '../../app/data.service';
 })
 export class HomePage {
   chapter;
-  mangaList;
+  mangaList: Observable<MangaList[]>;
 
   constructor(public navCtrl: NavController, public _data: DataService, public modalCtrl: ModalController) {
-    _data.getMangaList("mangareader.net")
-    .subscribe(data => {
-      this.mangaList = data.slice(0, 100);
-    });
-
-    _data.getChapter("naruto", "1")
-    .subscribe(data => {
-      this.chapter = data["pages"];
-    });
+    // retrieve list of manga from site
+    this.mangaList = _data.getMangaList("mangareader.net")
+    .map(data => data.slice(0, 100));
   }
 
-  presentManga(mangaid: string) {
+  presentManga(mangaId: string) {
     console.log("clicked");
+    const modal = this.modalCtrl.create('ModalMangaPage', {mangaId});
+    modal.present();
   }
 
 }

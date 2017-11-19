@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { DataService } from './data.service';
+import { ModalMangaPageModule } from '../pages/modal-manga/modal-manga.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DataService } from './data.service';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    ModalMangaPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

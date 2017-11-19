@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http'; 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import { MangaList } from '../models/manga.model';
 
 @Injectable()
 export class DataService {
@@ -18,15 +19,15 @@ export class DataService {
         .map(data => data.json());
     }
 
-    getMangaList(siteid: string): Observable<Array<any>> {
+    getMangaList(siteid: string): Observable<MangaList[]> {
         return this._http
         .get(`https://doodle-manga-scraper.p.mashape.com/${siteid}?cover=1&info=1`, this._options)
         .map(data => data.json());
     }
 
-    getManga(mangaid: string): Observable<Response> {
+    getManga(mangaId: string): Observable<MangaList> {
         return this._http
-        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${mangaid}/`)
+        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${mangaId}/`, this._options)
         .map(data => data.json());
     }
 
