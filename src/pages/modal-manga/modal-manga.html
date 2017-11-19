@@ -16,13 +16,13 @@
 </ion-header>
 
 
-<ion-content padding>
-  <img src="{{ (manga | async)?.cover }}" alt="">
+<ion-content padding *ngFor="let content of manga | async">
+  <img src="{{ content.cover }}" alt="">
   <h2>{{ (manga | async)?.name }}</h2>
   <p>{{ (manga | async)?.info }}</p>
 
   <ion-list>
-    <ion-item *ngFor="let chapter of (manga | async)?.chapters ">
+    <ion-item *ngFor="let chapter of content.chapters " (click)="readChapter(chapter.chapterId)">
       {{chapter.chapterId}} - {{chapter.name}}
     </ion-item>
   </ion-list>

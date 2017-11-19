@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http'; 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-import { MangaList, MangaDetail } from '../models/manga.model';
+import { MangaList, MangaDetail, ChapterDetail } from '../models/manga.model';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
@@ -13,9 +13,9 @@ export class DataService {
         this._options = new RequestOptions({headers : _header});
     }
 
-    getChapter(name: string, chapterid: string): Observable<Response> {
+    getChapter(name: string, id: string): Observable<ChapterDetail> {
         return this._http
-        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${name}/${chapterid}`, this._options)
+        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${name}/${id}`, this._options)
         .map(data => data.json());
     }
 
@@ -30,7 +30,4 @@ export class DataService {
         .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${mangaId}/`, this._options)
         .map(data => data.json());
     }
-
-
-
 }

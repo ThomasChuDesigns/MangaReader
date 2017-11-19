@@ -13,20 +13,24 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { DataService } from './data.service';
 import { ModalMangaPageModule } from '../pages/modal-manga/modal-manga.module';
+import { ChapterPageModule } from '../pages/chapter/chapter.module';
+import { HomePageModule } from '../pages/home/home.module';
+import { ChapterPage } from '../pages/chapter/chapter';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
     TabsPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    HomePageModule,
     ModalMangaPageModule,
+    ChapterPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

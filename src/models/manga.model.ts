@@ -16,3 +16,11 @@ export class MangaDetail {
 export class Chapter {
     constructor(public chapterid: string, public name: string) {}
 }
+
+export class ChapterDetail {
+    constructor(public href: string, public lastUpdate: string, public pages: Page[]) {}
+}
+
+export class Page {
+    constructor(public pageId: string, public url: string) {}
+}

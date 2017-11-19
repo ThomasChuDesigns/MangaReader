@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, IonicPage } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
 import { MangaList } from '../../models/manga.model';
 import { Observable } from 'rxjs/Observable';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -20,7 +21,7 @@ export class HomePage {
 
   presentManga(name: string) {
     // Show Manga Detail Modal
-    const modal = this.modalCtrl.create('ModalMangaPage', {name});
+    const modal = this.modalCtrl.create('ModalMangaPage', {'mangaId': name});
     modal.present();
   }
 
