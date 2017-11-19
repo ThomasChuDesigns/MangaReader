@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>modal-manga</ion-title>
+    <ion-title>{{ (manga | async)?.name }}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="onCloseModal()">Close</button>
     </ion-buttons>

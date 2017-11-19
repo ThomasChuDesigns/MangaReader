@@ -21,9 +21,8 @@ export class ModalMangaPage {
   }
 
   ionViewDidLoad() {
-    let mangaId = this.navParams.get('mangaId');
-    this.manga = this._data.getManga(mangaId);
-    console.log(this.manga);
+    let name = this.navParams.get('name');
+    this.manga = this._data.getManga(name).map(data => console.log(data));
   }
 
   onCloseModal() {

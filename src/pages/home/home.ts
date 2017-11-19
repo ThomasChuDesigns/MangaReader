@@ -18,9 +18,8 @@ export class HomePage {
     .map(data => data.slice(0, 100));
   }
 
-  presentManga(mangaId: string) {
-    console.log("clicked");
-    const modal = this.modalCtrl.create('ModalMangaPage', {mangaId});
+  presentManga(name: string) {
+    const modal = this.modalCtrl.create('ModalMangaPage', {name});
     modal.present();
   }
 
