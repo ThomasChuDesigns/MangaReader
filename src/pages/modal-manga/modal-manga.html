@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ (manga | async)?.name }}</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Munchyroll</ion-title>
     <ion-buttons end>
       <button ion-button (click)="onCloseModal()">Close</button>
     </ion-buttons>
@@ -17,13 +17,13 @@
 
 
 <ion-content padding *ngFor="let content of manga | async">
-  <img src="{{ content.cover }}" alt="">
-  <h2>{{ (manga | async)?.name }}</h2>
-  <p>{{ (manga | async)?.info }}</p>
+  <img class="manga-cover" src="{{ content.cover }}" alt="">
+  <h2>{{ content.name }}</h2>
+  <p>{{ content.info }}</p>
 
   <ion-list>
     <ion-item *ngFor="let chapter of content.chapters " (click)="readChapter(chapter.chapterId)">
-      {{chapter.chapterId}} - {{chapter.name}}
+      Chapter {{chapter.chapterId}} {{chapter.name}}
     </ion-item>
   </ion-list>
 
