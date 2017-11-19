@@ -9,17 +9,20 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Munchyroll</ion-title>
+    <ion-buttons end style="color:white;">
+      <button ion-button (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-searchbar *ngIf="showSearchbar" color="primary" (ionInput)="getItems($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
   <ion-grid>
-    <ion-row>
-
-      <ion-col col-6 *ngFor="let manga of mangaList | async" (click)="presentManga(manga['mangaId'])">
+    <ion-row *ngIf="(mangaList | async)?.length">
+      <ion-col col-6 *ngFor="let manga of mangaList | async" (click)="presentManga(manga.mangaId)">
         <ion-card class="text-center">
-            <img src="{{ manga['cover'] }}" class="img-card">
-            <ion-card-title>{{ manga['name'] }}</ion-card-title>
+            <img src="{{ manga.cover }}" class="img-card">
+            <ion-card-title>{{ manga.name }}</ion-card-title>
         </ion-card>
       </ion-col>
 

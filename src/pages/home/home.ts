@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, IonicPage } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
 import { MangaList } from '../../models/manga.model';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,7 @@ export class HomePage {
   mangaList: Observable<MangaList[]>;
   tabBarElement: any;
   splash = true;
+  showSearchbar: boolean = false;
 
   constructor(public navCtrl: NavController, public _data: DataService, public modalCtrl: ModalController) {
     // retrieve list of manga from site
@@ -30,11 +31,22 @@ export class HomePage {
       }, 4000);
     }
 
+  toggleSearch() {
+    this.showSearchbar = !this.showSearchbar;
+  }
 
   presentManga(name: string) {
     // Show Manga Detail Modal
     const modal = this.modalCtrl.create('ModalMangaPage', {'mangaId': name});
     modal.present();
+  }
+
+  getItems(event: any) {
+    var value = event.target.value;
+    if(value && value.length > 3) {
+      this.mangaList = this._data.getSearch(value);
+      console.log(this.mangaList);
+    }
   }
 
 }

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
+import { ChapterDetail } from '../../models/manga.model';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the ChapterPage page.
@@ -15,15 +17,20 @@ import { DataService } from '../../app/data.service';
   templateUrl: 'chapter.html',
 })
 export class ChapterPage {
-  chapter;
+  @ViewChild(Slides) slides: Slides;
+  currentSlide: number = 1;
+  chapter: Observable<ChapterDetail>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private _data: DataService) {
   }
 
   ionViewDidLoad() {
-    console.log(this.navParams);
     var name = this.navParams.get('mangaId');
     var id = this.navParams.get('id');
     this.chapter = this._data.getChapter(name, id);
+  }
+
+  onSlideChanged() {
+    this.currentSlide = this.slides._activeIndex + 1;
   }
 
 }

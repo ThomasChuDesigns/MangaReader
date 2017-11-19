@@ -30,4 +30,10 @@ export class DataService {
         .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/manga/${mangaId}/`, this._options)
         .map(data => data.json());
     }
+
+    getSearch(value: string): Observable<MangaList[]> {
+        return this._http
+        .get(`https://doodle-manga-scraper.p.mashape.com/mangareader.net/search?cover=1&info=1&l=30&q=${value}`, this._options)
+        .map(data => data.json());
+    }
 }

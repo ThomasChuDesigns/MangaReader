@@ -23,15 +23,18 @@ export class ModalMangaPage {
   }
 
   ionViewDidLoad() {
+    // set observable and name
     this.name = this.navParams.get('mangaId');
     this.manga = this._data.getManga(this.name).map(data => [data]);
   }
 
   onCloseModal() {
+    // close modal
     this.viewCtrl.dismiss();
   }
 
   readChapter(id: string) {
+    // open chapter page
     this.navCtrl.push('ChapterPage', {'mangaId':this.name, 'id':id});
   }
 

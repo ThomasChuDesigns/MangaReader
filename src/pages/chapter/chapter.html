@@ -7,15 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Munchyroll</ion-title>
+    <ion-title>{{currentSlide}} / {{(chapter | async)?.pages.length}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-    <ion-slides>
+    <ion-slides  (ionSlideDidChange)="onSlideChanged()">
         <ion-slide *ngFor="let page of (chapter | async)?.pages">
           <img src="{{page.url}}" alt="">
         </ion-slide>
-      </ion-slides>
+    </ion-slides>
 </ion-content>
