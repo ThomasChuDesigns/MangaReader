@@ -19,6 +19,7 @@ export class HomePage {
   }
 
   presentManga(name: string) {
+    // Show Manga Detail Modal
     const modal = this.modalCtrl.create('ModalMangaPage', {name});
     modal.present();
   }
