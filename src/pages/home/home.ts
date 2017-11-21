@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, ModalController, LoadingController } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
 import { MangaList } from '../../models/manga.model';
 import { Observable } from 'rxjs/Observable';
+import { Content } from 'ionic-angular/navigation/nav-interfaces';
 
 
 @Component({
@@ -10,17 +11,28 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  chapter;
-  mangaList: Observable<MangaList[]>;
   tabBarElement: any;
   splash = true;
+
+  chapter;
+  mangaList: Observable<MangaList[]>;
+  items: MangaList[] = [];
   showSearchbar: boolean = false;
 
-  constructor(public navCtrl: NavController, public _data: DataService, public modalCtrl: ModalController) {
+  start: number = 0;
+  end: number = 10;
+
+  @ViewChild('content') content: Content;
+
+  constructor(public loadCtrl: LoadingController, public navCtrl: NavController, public _data: DataService, public modalCtrl: ModalController) {
     // retrieve list of manga from site
     this.tabBarElement = document.querySelector('.tabbar');
-    this.mangaList = _data.getMangaList("mangareader.net")
-    .map(data => data.slice(0, 100));
+    _data.getMangaList("mangareader.net")
+    .subscribe(data => {
+      // push new manga into list
+      this.items = data.slice(this.start, this.end);
+      this.start = this.end;
+    });
   }
 
   ionViewDidLoad() {
@@ -33,6 +45,7 @@ export class HomePage {
 
   toggleSearch() {
     this.showSearchbar = !this.showSearchbar;
+    this.content.resize;
   }
 
   presentManga(name: string) {
@@ -44,9 +57,36 @@ export class HomePage {
   getItems(event: any) {
     var value = event.target.value;
     if(value && value.length > 3) {
-      this.mangaList = this._data.getSearch(value);
+      // search if search bar length > 3
+      this._data.getSearch(value)
+      .subscribe(data => {
+        this.items = data;
+      });
       console.log(this.mangaList);
+    }else {
+      // get manga loaded
+      this._data.getMangaList("mangareader.net")
+      .subscribe(data => {
+        this.items = data.splice(0, this.end);
+      });
     }
+  }
+
+  doInfinite(event: any) {
+    console.log('Begin async operation');
+    // begin to add 30 more manga
+    this.end += 30;
+    setTimeout(() => {
+      this._data.getMangaList("mangareader.net")
+      .subscribe(
+        data => {
+          // add new manga to items list
+          for(; this.start < this.end; this.start++) this.items.push(data[this.start]);
+        });
+      
+      console.log('Async operation has ended');
+      event.complete();
+    }, 500);
   }
 
 }
