@@ -15,7 +15,6 @@ export class HomePage {
   splash = true;
 
   chapter;
-  mangaList: Observable<MangaList[]>;
   items: MangaList[] = [];
   showSearchbar: boolean = false;
 
@@ -62,7 +61,6 @@ export class HomePage {
       .subscribe(data => {
         this.items = data;
       });
-      console.log(this.mangaList);
     }else {
       // get manga loaded
       this._data.getMangaList("mangareader.net")
@@ -73,7 +71,6 @@ export class HomePage {
   }
 
   doInfinite(event: any) {
-    console.log('Begin async operation');
     // begin to add 30 more manga
     this.end += 30;
     setTimeout(() => {

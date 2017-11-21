@@ -20,6 +20,7 @@ export class ChapterPage {
   @ViewChild(Slides) slides: Slides;
   currentSlide: number = 1;
   chapter: Observable<ChapterDetail>;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private _data: DataService) {
   }
 
