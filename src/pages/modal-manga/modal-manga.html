@@ -13,7 +13,7 @@
 <ion-content padding *ngFor="let content of manga | async">
   <img class="manga-cover" src="{{ content.cover }}" alt="">
   <h2>{{ content.name }}</h2>
-  <p>{{ content.info }}</p>
+  <p text-sm>{{ content.info }}</p>
 
   <ion-list>
     <ion-item *ngFor="let chapter of content.chapters " (click)="readChapter(chapter.chapterId)">

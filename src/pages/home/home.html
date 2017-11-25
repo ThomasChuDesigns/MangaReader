@@ -13,12 +13,11 @@
       <button ion-button (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar color="primary" *ngIf="showSearchbar">
-      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content padding #content>
+<ion-content #content>
+  <ion-searchbar *ngIf="showSearchbar" (ionInput)="getItems($event)"></ion-searchbar>
+  
   <ion-grid>
     <ion-row *ngIf="items.length">
       <ion-col col-12 *ngFor="let manga of items" (click)="presentManga(manga.mangaId)">

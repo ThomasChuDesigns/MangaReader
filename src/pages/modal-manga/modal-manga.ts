@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController, NavController } from 'ionic-angular';
 import { DataService } from '../../app/data.service';
-import { MangaList, MangaDetail } from '../../models/manga.model';
+import { MangaList, MangaDetail, Chapter } from '../../models/manga.model';
 import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the ModalMangaPage page.
@@ -19,13 +19,18 @@ export class ModalMangaPage {
   name;
   manga;
 
+  chapters: Chapter[] = [];
+  start = 0;
+  end = 15;
+
   constructor(private navCtrl: NavController, private viewCtrl: ViewController, private navParams: NavParams, private _data: DataService) {
   }
 
   ionViewDidLoad() {
     // set observable and name
     this.name = this.navParams.get('mangaId');
-    this.manga = this._data.getManga(this.name).map(data => [data]);
+    this.manga = this._data.getManga(this.name)
+    .map(data => [data]);
   }
 
   onCloseModal() {
@@ -37,5 +42,4 @@ export class ModalMangaPage {
     // open chapter page
     this.navCtrl.push('ChapterPage', {'mangaId':this.name, 'id':id});
   }
-
 }
